@@ -1,0 +1,48 @@
+info:
+  name: create order
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}mobile-merchant/create-order"
+  headers:
+    - name: Content-Type
+      value: application/json
+    - name: Accept
+      value: application/json
+    - name: Authorization
+      value: ""
+      disabled: true
+  body:
+    type: json
+    data: |-
+      {
+          "merchant_id": 2,
+          "location_id": 4,
+          "order_ref_number": "ORD-2024-6738",
+          "payment_type": "COD",
+          "order_amount": 150.50,
+          "quantity": 2,
+          "item_name": "Electronic mohil garg ",
+          "item_description": "2x Wireless Mouse",
+          "consignee_name": "Ahmed Ali",
+          "consignee_mobile_no": "+974-12345678",
+          "consignee_address": "Building 123, Street 45, Zone 25",
+          "consignee_street_no": "45",
+          "consignee_building_no": "123",
+          "consignee_zone_no": "25",
+          "dropoff_latitude": 25.2854,
+          "dropoff_longitude": 51.5310
+         
+      }
+  auth:
+    type: bearer
+    token: 5yrJPNWDZ7fGXZnWoO9vE44IgDqA2GfyLZN1xIapcTiwsAZWSikpLe08HBYc
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,55 @@
+info:
+  name: Update Order statuses
+  type: http
+  seq: 18
+
+http:
+  method: POST
+  url: "{{base_url}}driver/update-order-status"
+  headers:
+    - name: Content-Type
+      value: |
+        application/octet-stream
+      disabled: true
+  body:
+    type: multipart-form
+    data:
+      - name: fe_code
+        type: text
+        value: CL_VK
+      - name: status
+        type: text
+        value: DELIVERED
+      - name: delivery_proof
+        type: file
+        value:
+          - postman-cloud:///1efcbf55-7633-4440-acf3-1ec06e4f45f8
+      - name: signature
+        type: file
+        value:
+          - postman-cloud:///1efcbf55-7633-4440-acf3-1ec06e4f45f8
+      - name: awb_no
+        type: text
+        value: ZPY-100002
+      - name: reason
+        type: text
+        value: out of country
+        disabled: true
+      - name: failed_delivery_proof
+        type: file
+        value: []
+        disabled: true
+      - name: picked_buffer_time
+        type: text
+        value: "12"
+      - name: dropoff_buffer_time
+        type: text
+        value: "32"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

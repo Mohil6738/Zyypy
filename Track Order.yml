@@ -1,0 +1,82 @@
+info:
+  name: Track Order
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{base_url}}/track-order?api_token={{api_token}}&awb_no=AWB123456789"
+  params:
+    - name: api_token
+      value: "{{api_token}}"
+      type: query
+    - name: awb_no
+      value: AWB123456789
+      type: query
+    - name: order_ref_number
+      value: ORD-2025-001
+      type: query
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: Success Response
+    request:
+      url: "{{base_url}}/track-order?api_token={{api_token}}&awb_no=AWB123456789"
+      method: GET
+      params:
+        - name: api_token
+          value: "{{api_token}}"
+          type: query
+        - name: awb_no
+          value: AWB123456789
+          type: query
+        - name: order_ref_number
+          value: ORD-2025-001
+          type: query
+          disabled: true
+    response:
+      status: 200
+      statusText: OK
+      body:
+        type: text
+        data: |-
+          {
+              "status": true,
+              "data": {
+                  "awb_no": "AWB123456789",
+                  "order_ref_number": "ORD-2025-001",
+                  "current_status": "PICKED",
+                  "payment_type": "COD",
+                  "order_amount": 150.50,
+                  "consignee_name": "Ali Ahmed",
+                  "consignee_mobile_no": "+974-12345678",
+                  "fe_code": "DRV001",
+                  "last_updated": "2025-01-13 11:45:00",
+                  "tracking_history": [
+                      {
+                          "status": "PLACED",
+                          "timestamp": "2025-01-13 10:30:00"
+                      },
+                      {
+                          "status": "ASSIGNED",
+                          "timestamp": "2025-01-13 11:00:00"
+                      },
+                      {
+                          "status": "PICKED",
+                          "timestamp": "2025-01-13 11:45:00"
+                      }
+                  ]
+              },
+              "message": "Order tracking retrieved successfully",
+              "method": "GET"
+          }
+
+docs: Track order status and history (use awb_no OR order_ref_number)

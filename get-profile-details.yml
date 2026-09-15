@@ -1,0 +1,80 @@
+info:
+  name: get-profile-details
+  type: http
+  seq: 13
+
+http:
+  method: GET
+  url: "{{base_url}}driver/get-profile-details"
+  body:
+    type: json
+    data: |-
+      {
+          "fe_code":"CL_VK"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: Update Profile Details
+    request:
+      url: "{{base_url}}driver/update-profile-details"
+      method: POST
+      body:
+        type: multipart-form
+        data:
+          - name: avatar
+            type: file
+            value:
+              - postman-cloud:///1f10cafe-88c1-4260-ad4f-81e221cb01b5
+          - name: address
+            type: text
+            value: test address
+          - name: phone
+            type: text
+            value: "899929028292"
+          - name: fe_code
+            type: text
+            value: CL_VK
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Server
+          value: nginx/1.29.4
+        - name: Content-Type
+          value: application/json
+        - name: Transfer-Encoding
+          value: chunked
+        - name: Connection
+          value: keep-alive
+        - name: Vary
+          value: Accept-Encoding
+        - name: X-Powered-By
+          value: PHP/8.2.30
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Wed, 18 Feb 2026 09:56:34 GMT
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: Content-Encoding
+          value: gzip
+      body:
+        type: json
+        data: |-
+          {
+              "success": true,
+              "status_code": 200,
+              "method": "POST",
+              "message": "Profile Details Updated Successfully!",
+              "data": {
+                  "avatar_url": "https://zyppy.s3.ap-south-1.amazonaws.com/profileImage/CL_VK/1771408593.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4HZCFDBM6MPUI54T%2F20260218%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20260218T095634Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Signature=aa081d1e497936f79fc3bad81fc8ad16c28d4185a335a73f8df4657b4fbd38dc"
+              }
+          }

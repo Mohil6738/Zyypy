@@ -1,0 +1,112 @@
+info:
+  name: Logout
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: "{{base_url}}logout"
+  body:
+    type: json
+    data: |-
+      {
+          "user_id":4
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: 200 Success Response
+    request:
+      url: "{{base_url}}logout"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+              "user_id":4
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Server
+          value: nginx/1.25.4
+        - name: Content-Type
+          value: application/json
+        - name: Transfer-Encoding
+          value: chunked
+        - name: Connection
+          value: keep-alive
+        - name: Vary
+          value: Accept-Encoding
+        - name: X-Powered-By
+          value: PHP/8.3.4
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Mon, 16 Dec 2024 11:20:40 GMT
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: Content-Encoding
+          value: gzip
+      body:
+        type: json
+        data: |-
+          {
+              "success": true,
+              "status_code": 200,
+              "method": "POST",
+              "message": "User Logged Out",
+              "data": []
+          }
+  - name: 400 Role/User not Matched
+    request:
+      url: "{{base_url}}logout"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+              "user_id":2
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Server
+          value: nginx/1.25.4
+        - name: Content-Type
+          value: application/json
+        - name: Transfer-Encoding
+          value: chunked
+        - name: Connection
+          value: keep-alive
+        - name: Vary
+          value: Accept-Encoding
+        - name: X-Powered-By
+          value: PHP/8.3.4
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Mon, 16 Dec 2024 11:21:20 GMT
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: Content-Encoding
+          value: gzip
+      body:
+        type: json
+        data: |-
+          {
+              "success": false,
+              "status_code": 400,
+              "method": "POST",
+              "message": "User/Fe Role not Matched ",
+              "data": null
+          }

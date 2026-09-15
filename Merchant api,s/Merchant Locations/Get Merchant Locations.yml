@@ -1,0 +1,24 @@
+info:
+  name: Get Merchant Locations
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{base_url}}mobile-merchant/locations?merchant_id=2"
+  params:
+    - name: merchant_id
+      value: "2"
+      type: query
+  auth:
+    type: bearer
+    token: 5yrJPNWDZ7fGXZnWoO9vE44IgDqA2GfyLZN1xIapcTiwsAZWSikpLe08HBYc
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: Get all locations for the logged-in merchant

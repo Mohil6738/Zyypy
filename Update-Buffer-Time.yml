@@ -1,0 +1,26 @@
+info:
+  name: Update-Buffer-Time
+  type: http
+  seq: 19
+
+http:
+  method: POST
+  url: "{{base_url}}driver/update-buffer-time"
+  body:
+    type: json
+    data: |-
+      {
+          "fe_code":"CL_PAN",
+          "awb_no":"ZPY-100002",
+          "type":"PICKED_BUFFER_TIME",//PICKED_BUFFER_TIME, DROPOFF_BUFFER_TIME
+          "picked_buffer_time":"10"
+          // "dropoff_buffer_time":"9"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

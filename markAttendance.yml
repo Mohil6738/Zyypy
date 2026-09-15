@@ -1,0 +1,25 @@
+info:
+  name: markAttendance
+  type: http
+  seq: 8
+
+http:
+  method: POST
+  url: "{{base_url}}driver/check-in"
+  body:
+    type: json
+    data: |-
+      {
+          "user_id": "4",
+          "mark_attendance": true,
+         "latitude": "31.08388790",
+          "longitude": "77.17242140"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,175 @@
+info:
+  name: Fetch Order List
+  type: http
+  seq: 10
+
+http:
+  method: POST
+  url: "{{base_url}}driver/fetch-orders-list"
+  body:
+    type: json
+    data: |-
+      {
+          "fe_code":"CL_PAN",
+          "status":["PLACED"]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: Fetch Assigned Order->response
+    request:
+      url: "{{base_url}}driver/fetch-assigned-order"
+      method: GET
+      body:
+        type: json
+        data: |-
+          {
+              "fe_code":"AL_Consecte"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Server
+          value: nginx/1.27.3
+        - name: Content-Type
+          value: application/json
+        - name: Transfer-Encoding
+          value: chunked
+        - name: Connection
+          value: keep-alive
+        - name: Vary
+          value: Accept-Encoding
+        - name: X-Powered-By
+          value: PHP/8.4.1
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Mon, 30 Dec 2024 06:40:55 GMT
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: Content-Encoding
+          value: gzip
+      body:
+        type: json
+        data: |-
+          {
+              "success": true,
+              "status_code": 200,
+              "method": "POST",
+              "message": "Assigned Orders Founds",
+              "data": [
+                  {
+                      "id": 5,
+                      "merchant_id": 1,
+                      "location_id": 1,
+                      "order_ref_number": "Ordser1",
+                      "job_type": null,
+                      "awb_no": "ZPY-100001",
+                      "fe_code": "AL_Consecte",
+                      "status": "ASSIGNED",
+                      "run_sheet_no": "AL_Consecte20241230",
+                      "item_amount": "100.00",
+                      "payment_type": "COD",
+                      "quantity": 1,
+                      "item_name": "Jeans",
+                      "item_description": "Jeans shirts ",
+                      "weight": "1.00",
+                      "consignee_name": "Vikas",
+                      "consignee_mobile_no": "9854876549",
+                      "consignee_address": "Vpo shimla Teh Nadaun Distt Hamirpur",
+                      "consignee_city": "Shimla",
+                      "consignee_zone": "Zone 12",
+                      "consignee_state": "Doha",
+                      "dropoff_latitude": null,
+                      "dropoff_longitude": null,
+                      "remarks": null,
+                      "created_at": "2024-12-19T12:40:46.000000Z",
+                      "updated_at": "2024-12-30T06:10:00.000000Z",
+                      "location_name": "carson",
+                      "location_address": "Carson Hot Springs Golf & Spa Resort, Saint Martins Springs Road, Carson, WA, USA",
+                      "location_phone": "345235235",
+                      "zone": "Zone 01",
+                      "merchant_name": "Bree Franklin",
+                      "merchant_code": "CL_BREFRA",
+                      "merchant_logo": null
+                  },
+                  {
+                      "id": 6,
+                      "merchant_id": 1,
+                      "location_id": 1,
+                      "order_ref_number": "Ordser2",
+                      "job_type": null,
+                      "awb_no": "ZPY-100002",
+                      "fe_code": "AL_Consecte",
+                      "status": "ASSIGNED",
+                      "run_sheet_no": "AL_Consecte20241230",
+                      "item_amount": "100.00",
+                      "payment_type": "PPD",
+                      "quantity": 1,
+                      "item_name": "Jeans",
+                      "item_description": "Jeans shirts ",
+                      "weight": "1.00",
+                      "consignee_name": "Vikas",
+                      "consignee_mobile_no": "9854876549",
+                      "consignee_address": "Vpo shimla Teh Nadaun Distt Hamirpur",
+                      "consignee_city": "Shimla",
+                      "consignee_zone": "Zone 12",
+                      "consignee_state": "Doha",
+                      "dropoff_latitude": null,
+                      "dropoff_longitude": null,
+                      "remarks": null,
+                      "created_at": "2024-12-19T12:40:46.000000Z",
+                      "updated_at": "2024-12-30T06:10:10.000000Z",
+                      "location_name": "carson",
+                      "location_address": "Carson Hot Springs Golf & Spa Resort, Saint Martins Springs Road, Carson, WA, USA",
+                      "location_phone": "345235235",
+                      "zone": "Zone 01",
+                      "merchant_name": "Bree Franklin",
+                      "merchant_code": "CL_BREFRA",
+                      "merchant_logo": null
+                  },
+                  {
+                      "id": 7,
+                      "merchant_id": 1,
+                      "location_id": 1,
+                      "order_ref_number": "Ordser3",
+                      "job_type": null,
+                      "awb_no": "ZPY-100003",
+                      "fe_code": "AL_Consecte",
+                      "status": "ASSIGNED",
+                      "run_sheet_no": "AL_Consecte20241230",
+                      "item_amount": "100.00",
+                      "payment_type": "COD",
+                      "quantity": 1,
+                      "item_name": "Jeans",
+                      "item_description": "Jeans shirts ",
+                      "weight": "1.00",
+                      "consignee_name": "Vikas",
+                      "consignee_mobile_no": "9854876549",
+                      "consignee_address": "Vpo shimla Teh Nadaun Distt Hamirpur",
+                      "consignee_city": "Shimla",
+                      "consignee_zone": "Zone 12",
+                      "consignee_state": "Doha",
+                      "dropoff_latitude": null,
+                      "dropoff_longitude": null,
+                      "remarks": null,
+                      "created_at": "2024-12-19T12:40:46.000000Z",
+                      "updated_at": "2024-12-30T06:10:10.000000Z",
+                      "location_name": "carson",
+                      "location_address": "Carson Hot Springs Golf & Spa Resort, Saint Martins Springs Road, Carson, WA, USA",
+                      "location_phone": "345235235",
+                      "zone": "Zone 01",
+                      "merchant_name": "Bree Franklin",
+                      "merchant_code": "CL_BREFRA",
+                      "merchant_logo": null
+                  }
+              ]
+          }

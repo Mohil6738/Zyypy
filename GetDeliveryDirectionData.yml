@@ -1,0 +1,22 @@
+info:
+  name: GetDeliveryDirectionData
+  type: http
+  seq: 21
+
+http:
+  method: GET
+  url: "{{base_url}}driver/get-delivery-direction-data"
+  body:
+    type: json
+    data: |-
+      {
+          "awb_no":"ZPY-100003"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

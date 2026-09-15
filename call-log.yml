@@ -1,0 +1,22 @@
+info:
+  name: call-log
+  type: http
+  seq: 27
+
+http:
+  method: GET
+  url: "{{base_url}}driver/call-log"
+  body:
+    type: json
+    data: |-
+      {
+          "awb_no": "CL_2026040101"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,229 @@
+info:
+  name: New Request
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: https://fcm.googleapis.com/v1/projects/{{project_id}}/messages:send
+  body:
+    type: json
+    data: |
+      {
+        "message": {
+          "token": "evgUzXcJQYWQhGW7Ku6bsa:APA91bE8B5mkqMVCVTEtr2FXjavogxcZGW-JsUcFgLwHgALQMJvQhw8X0WXwxa-tyxPZcsqZeDlv-rGq68FoNLjCN_uKK0pUK_FL31q4X2udYLer3-YzpGo",
+          "data": {
+            "title": "New Order Received",
+            "body": "You have a new assigned order",
+            "type": "AssignedOrder",
+            "sound": "new_order"
+          },
+          "android": {
+            "priority": "HIGH",
+            "notification": {
+              "sound": "new_order",
+              "channel_id": "assigned_new_order_channel",
+              "default_sound": false
+            }
+          }
+        }
+      }
+
+
+      //NearBy Orders
+      // {
+      //   "message": {
+      //     "token": "DEVICE_FCM_TOKEN",
+      //     "data": {
+      //       "title": "Nearby Order Available",
+      //       "body": "Pickup available near your location",
+      //       "type": "NearByOrders",
+      //       "sound": "nearby_order"
+      //     },
+      //     "android": {
+      //       "priority": "HIGH",
+      //       "notification": {
+      //         "sound": "nearby_order",
+      //         "channel_id": "nearby_orders_channel",
+      //         "default_sound": false
+      //       }
+      //     }
+      //   }
+      // }
+  auth:
+    type: bearer
+    token: ya29.a0ATi6K2t_UfLn6joPpffoVEVV1eW6RRvH38wnRZvdxD3U8GiW6HyNkd2om0jPaE6WRMSWg_IX3uk8KJ37jbYdMroPaDXgi2s05vqrzcAPq_GRXmeW56GoDF1TZ1_AuGmdEJPX25OG-FpK5W2P2N5jOhN8EsTw8f-bAuwYjehVvd8_xn-uIHCWU7XGIbPnFxwa_i_NW6p7aCgYKAT0SARMSFQHGX2Mi7nl1VW_Esi9_Py41yelzBg0207
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        // /* Pre-request script to generate OAuth 2.0 Access Token for FCM HTTP v1 using a Google Service Account
+
+        // Requirements:
+        // - Environment (Dev-Zyppy) or Vault must contain service_account_key variable with the full JSON of the service account key (as string)
+        // - Optional environment variable gcp_token_scope can override scope (default: https://www.googleapis.com/auth/firebase.messaging)
+        // - Sets environment variable access_token for use in Authorization: Bearer {{access_token}}
+        // */
+
+        // (async function generateAccessToken() {
+        //   try {
+        //     // Get service account JSON string (prefer env, fall back to vault)
+        //     let SERVICE_ACCOUNT_JSON = pm.environment.get('service_account_key');
+        //     if (!SERVICE_ACCOUNT_JSON) {
+        //       SERVICE_ACCOUNT_JSON = pm.vault.get('service_account_key');
+        //     }
+
+        //     if (!SERVICE_ACCOUNT_JSON) {
+        //       throw new Error('Missing service_account_key in environment or vault. Add the service account JSON key as a string.');
+        //     }
+
+        //     // Guard against accidentally storing an object or a Promise instead of a JSON string
+        //     if (typeof SERVICE_ACCOUNT_JSON !== 'string') {
+        //       // Some users paste an object via the Postman UI, which becomes [object Object]
+        //       try {
+        //         SERVICE_ACCOUNT_JSON = JSON.stringify(SERVICE_ACCOUNT_JSON);
+        //       } catch (e) {
+        //         throw new Error('service_account_key is not a string. Ensure it is stored as the raw JSON string.');
+        //       }
+        //     }
+
+        //     // If someone pasted a Promise-like value, coerce to string and fail fast
+        //     if (SERVICE_ACCOUNT_JSON.indexOf('[object Promise]') !== -1) {
+        //       throw new Error('service_account_key contains "[object Promise]". Store the actual JSON from the downloaded service account file.');
+        //     }
+
+        //     // Normalize potential doubled-escaped JSON (e.g. UI pasting adds extra quotes)
+        //     // Try to detect and unwrap if the string is quoted JSON
+        //     let sa;
+        //     try {
+        //       sa = JSON.parse(SERVICE_ACCOUNT_JSON);
+        //     } catch (e1) {
+        //       // Attempt un-escape once if it looks like a quoted JSON string
+        //       try {
+        //         const maybe = JSON.parse(SERVICE_ACCOUNT_JSON.replace(/^"|"$/g, ''));
+        //         if (maybe && typeof maybe === 'object' && maybe.client_email && maybe.private_key) {
+        //           sa = maybe;
+        //         } else {
+        //           throw e1;
+        //         }
+        //       } catch (e2) {
+        //         throw new Error('service_account_key is not valid JSON. Paste the full JSON content of your service account key file. Details: ' + e2.message);
+        //       }
+        //     }
+
+        //     const now = Math.floor(Date.now() / 1000);
+        //     const iat = now;
+        //     const exp = now + 3600; // Per Google docs, max 1 hour
+
+        //     const iss = sa.client_email;
+        //     const scope = pm.environment.get('gcp_token_scope') || 'https://www.googleapis.com/auth/firebase.messaging';
+        //     const aud = sa.token_uri || 'https://oauth2.googleapis.com/token';
+
+        //     if (!iss || !sa.private_key) {
+        //       throw new Error('service_account_key JSON must include client_email and private_key');
+        //     }
+
+        //     // Build JWT header and claim set
+        //     const header = { alg: 'RS256', typ: 'JWT' };
+        //     const claimSet = { iss: iss, scope: scope, aud: aud, iat: iat, exp: exp };
+
+        //     // Base64URL helpers
+        //     function base64url(inputWordArray) {
+        //       return CryptoJS.enc.Base64.stringify(inputWordArray)
+        //         .replace(/=+$/, '')
+        //         .replace(/\+/g, '-')
+        //         .replace(/\//g, '_');
+        //     }
+
+        //     function utf8ToWordArray(str) {
+        //       return CryptoJS.enc.Utf8.parse(str);
+        //     }
+
+        //     // Encode header and payload
+        //     const encodedHeader = base64url(utf8ToWordArray(JSON.stringify(header)));
+        //     const encodedPayload = base64url(utf8ToWordArray(JSON.stringify(claimSet)));
+        //     const unsignedJWT = encodedHeader + '.' + encodedPayload;
+
+        //     // Sign using RSA-SHA256 (RS256) with the service account private key
+        //     // CryptoJS alone can't sign RS256. Use the built-in crypto-js + jsrsasign shim available in Postman sandbox via KJUR to sign.
+        //     // Postman sandbox includes the function KJUR.jws.JWS.sign for RS256 signing.
+        //     let signedJWT;
+        //     try {
+        //       // Normalize private key: ensure it has proper PEM line breaks
+        //       let privateKey = sa.private_key;
+        //       if (privateKey && privateKey.indexOf('BEGIN PRIVATE KEY') !== -1) {
+        //         // Ensure proper newlines for PEM
+        //         privateKey = privateKey.replace(/\\n/g, '\n');
+        //       }
+
+        //       // Use jsrsasign to sign (RS256)
+        //       signedJWT = KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(claimSet), privateKey);
+        //     } catch (e) {
+        //       throw new Error('Failed to sign JWT with RS256. Check private_key formatting. Details: ' + e.message);
+        //     }
+
+        //     // Exchange JWT for OAuth2 access token
+        //     const tokenReq = {
+        //       url: aud,
+        //       method: 'POST',
+        //       header: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        //       body: {
+        //         mode: 'urlencoded',
+        //         urlencoded: [
+        //           { key: 'grant_type', value: 'urn:ietf:params:oauth:grant-type:jwt-bearer' },
+        //           { key: 'assertion', value: signedJWT }
+        //         ]
+        //       }
+        //     };
+
+        //     const tokenRes = await pm.sendRequest(tokenReq);
+
+        //     let accessToken;
+        //     try {
+        //       const json = tokenRes.json();
+        //       if (!json.access_token) {
+        //         throw new Error('No access_token in token response: ' + JSON.stringify(json));
+        //       }
+        //       accessToken = json.access_token;
+        //     } catch (e) {
+        //       throw new Error('Failed to parse token response as JSON. Status ' + tokenRes.code + ': ' + tokenRes.text());
+        //     }
+
+        //     // Persist in environment for use by Authorization: Bearer {{access_token}}
+        //     pm.environment.set('access_token', accessToken);
+
+        //   } catch (err) {
+        //     // Surface clear error and prevent request execution if token cannot be created
+        //     pm.environment.unset('access_token');
+        //     throw err;
+        //   }
+        // })();
+    - type: after-response
+      code: |-
+        // // Tests for FCM v1 send message response
+        // pm.test('Response status is 2xx', function () {
+        //   pm.expect(pm.response.code).to.be.within(200, 299);
+        // });
+
+        // // Log details on failure and assert common headers
+        // if (pm.response.code < 200 || pm.response.code > 299) {
+        //   let bodyText = pm.response.text();
+        //   let errMsg = bodyText;
+        //   try {
+        //     const json = pm.response.json();
+        //     errMsg = JSON.stringify(json, null, 2);
+        //   } catch (e) { /* not json */ }
+        //   console.error('FCM request failed with status ' + pm.response.code + ': ' + errMsg);
+        // }
+
+        // pm.test('Content-Type header present', function () {
+        //   pm.response.to.have.header('Content-Type');
+        // });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,24 @@
+info:
+  name: Driver Assign
+  type: http
+  seq: 34
+
+http:
+  method: POST
+  url: "{{base_url}}driver/assign"
+  body:
+    type: json
+    data: |-
+      {
+          "driver_code":"CL_VK",
+          "awb_no":"ZPY-100007",
+          "warehouse_manager_code":"CL_DIX"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

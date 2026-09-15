@@ -1,0 +1,23 @@
+info:
+  name: Post version
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base_url}}version"
+  body:
+    type: json
+    data: |-
+      {
+          "version":"9.09.0",
+          "path":"https://holiscope.carsonlogistics.net/"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

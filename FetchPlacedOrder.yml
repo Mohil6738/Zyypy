@@ -1,0 +1,24 @@
+info:
+  name: FetchPlacedOrder
+  type: http
+  seq: 16
+
+http:
+  method: POST
+  url: "{{base_url}}driver/fetch-placed-order"
+  body:
+    type: json
+    data: |-
+      {
+          "fe_code": "CL_VK",
+          "latitude": "31.0928658",
+          "longitude": "77.1730229"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

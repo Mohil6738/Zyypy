@@ -1,0 +1,34 @@
+info:
+  name: https://api.openrouteservice.org/v2/isochrones/driving-car
+  type: http
+  seq: 38
+
+http:
+  method: POST
+  url: https://api.openrouteservice.org/v2/isochrones/driving-car
+  headers:
+    - name: Content-Type
+      value: application/json; charset=utf-8
+    - name: Accept
+      value: application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8
+    - name: Authorization
+      value: your-api-key
+  body:
+    type: json
+    data: '{"locations":[[8.681495,49.41461],[8.686507,49.41943]],"range":[300,200]}'
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: |-
+  Generated from cURL:   curl -X POST \
+    'https://api.openrouteservice.org/v2/isochrones/driving-car' \
+    -H 'Content-Type: application/json; charset=utf-8' \
+    -H 'Accept: application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8' \
+    -H 'Authorization: your-api-key' \
+    -d '{"locations":[[8.681495,49.41461],[8.686507,49.41943]],"range":[300,200]}'

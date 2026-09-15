@@ -1,0 +1,35 @@
+info:
+  name: Cancel Order
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{base_url}}mobile-merchant/cancel-order?merchant_id=2"
+  headers:
+    - name: Content-Type
+      value: application/json
+  params:
+    - name: merchant_id
+      value: "2"
+      type: query
+  body:
+    type: json
+    data: |-
+      {
+          "awb_no": "CL_2026042801",
+          "cancellation_reason": "Customer requested cancellation",
+          "merchant_type":"B2C"
+      }
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+docs: Cancel an order (only if status is PLACED or ASSIGNED)

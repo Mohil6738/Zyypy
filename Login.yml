@@ -1,0 +1,138 @@
+info:
+  name: Login
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{base_url}}login"
+  body:
+    type: json
+    data: |-
+      {
+          "fe_code": "CL_VK",
+          "password":"secret",
+          "device_token":"3532523535325235353252353532523535325235",
+          "latitude": "31.08388790",
+          "longitude": "77.17242140"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: 200 Success Response
+    request:
+      url: "{{base_url}}login"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+              "fe_code":"ANB_VIK",
+              "password":"secret",
+              "device_token":"35325235"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Server
+          value: nginx/1.25.4
+        - name: Content-Type
+          value: application/json
+        - name: Transfer-Encoding
+          value: chunked
+        - name: Connection
+          value: keep-alive
+        - name: Vary
+          value: Accept-Encoding
+        - name: X-Powered-By
+          value: PHP/8.3.4
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Mon, 16 Dec 2024 10:58:47 GMT
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: Content-Encoding
+          value: gzip
+      body:
+        type: json
+        data: |-
+          {
+              "success": true,
+              "status_code": 200,
+              "method": "POST",
+              "message": "Client Authentication Success!",
+              "data": {
+                  "id": 4,
+                  "role_id": 4,
+                  "vendor_id": 1,
+                  "name": "vikas",
+                  "code": "ANB_VIK",
+                  "email": "vikas@carsonlogistics.net",
+                  "phone": "+974234234234",
+                  "api_token": "Fbu3LTgOozI0dcVUshB9WlgzMzH3ZIUf94OZnsDuwXt23QEfrOE1VCzj8xfb",
+                  "address": null,
+                  "active": 1,
+                  "avatar": null,
+                  "device_token": "35325235",
+                  "latitude": null,
+                  "longitude": null,
+                  "email_verified_at": null,
+                  "created_at": "2024-12-16T10:58:35.000000Z",
+                  "updated_at": "2024-12-16T10:58:47.000000Z"
+              }
+          }
+  - name: 401 Authentication Fail
+    request:
+      url: "{{base_url}}login"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+              "fe_code":"ANB_VIK",
+              "password":"secrwet",
+              "device_token":"35325235"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Server
+          value: nginx/1.25.4
+        - name: Content-Type
+          value: application/json
+        - name: Transfer-Encoding
+          value: chunked
+        - name: Connection
+          value: keep-alive
+        - name: Vary
+          value: Accept-Encoding
+        - name: X-Powered-By
+          value: PHP/8.3.4
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Mon, 16 Dec 2024 11:01:44 GMT
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: Content-Encoding
+          value: gzip
+      body:
+        type: json
+        data: |-
+          {
+              "status_code": 401,
+              "status": "success",
+              "method": "POST",
+              "message": "Client Authentication failed!",
+              "data": []
+          }

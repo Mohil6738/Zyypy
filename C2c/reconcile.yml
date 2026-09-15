@@ -1,0 +1,20 @@
+info:
+  name: reconcile
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{base_url}}/v1/reconcile?fe_code=123"
+  params:
+    - name: fe_code
+      value: "123"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

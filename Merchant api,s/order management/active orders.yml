@@ -1,0 +1,26 @@
+info:
+  name: active orders
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base_url}}mobile-merchant/active-orders"
+  body:
+    type: json
+    data: |-
+      {
+         "merchant_id":2,
+         "location_id":4,
+         "merchant_type":"C2C"
+      }
+  auth:
+    type: bearer
+    token: zgq7jq4trRAFqnhJ9H6lyka2DbAOOZjbqJ7mf0chwMlm7SNoeDIotrqXFua7
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

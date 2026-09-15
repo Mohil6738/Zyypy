@@ -1,0 +1,87 @@
+info:
+  name: FetchDashboardDetails
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{base_url}}driver/fetch-c2c-order-dashboard-details?fe_code=CL_PAN"
+  params:
+    - name: fe_code
+      value: CL_PAN
+      type: query
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: Reponse
+    request:
+      url: "{{base_url}}driver/fetch-c2c-order-dashboard-details?fe_code=CL_PAN"
+      method: GET
+      params:
+        - name: fe_code
+          value: CL_PAN
+          type: query
+      body:
+        type: json
+        data: ""
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Server
+          value: nginx/1.27.3
+        - name: Content-Type
+          value: application/json
+        - name: Transfer-Encoding
+          value: chunked
+        - name: Connection
+          value: keep-alive
+        - name: Vary
+          value: Accept-Encoding
+        - name: X-Powered-By
+          value: PHP/8.2.26
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Fri, 26 Sep 2025 12:12:06 GMT
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: Content-Encoding
+          value: gzip
+      body:
+        type: json
+        data: |-
+          {
+              "success": true,
+              "status_code": 200,
+              "method": "GET",
+              "message": "Data Found",
+              "data": {
+                  "today_orders_count": {
+                      "ALL_ORDER": 2,
+                      "ASSIGNED": 2,
+                      "PICKED": 0,
+                      "OFD": 0,
+                      "UNDELIVERED": 0,
+                      "DELIVERED": 0
+                  },
+                  "all_orders_count": {
+                      "ALL_ORDER": 2,
+                      "ASSIGNED": 2,
+                      "PICKED": 0,
+                      "OFD": 0,
+                      "UNDELIVERED": 0,
+                      "DELIVERED": 0
+                  }
+              }
+          }

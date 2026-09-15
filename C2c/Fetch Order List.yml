@@ -1,0 +1,159 @@
+info:
+  name: Fetch Order List
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}driver/fetch-c2c-orders-list"
+  body:
+    type: json
+    data: |-
+      {
+          "fe_code":"CL_PAN",
+          "status":["ASSIGNED"]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: Response data
+    request:
+      url: "{{base_url}}driver/fetch-c2c-orders-list"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+              "fe_code":"CL_PAN",
+              "status":["ASSIGNED"]
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Server
+          value: nginx/1.27.3
+        - name: Content-Type
+          value: application/json
+        - name: Transfer-Encoding
+          value: chunked
+        - name: Connection
+          value: keep-alive
+        - name: Vary
+          value: Accept-Encoding
+        - name: X-Powered-By
+          value: PHP/8.2.26
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Fri, 26 Sep 2025 12:11:22 GMT
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: Content-Encoding
+          value: gzip
+      body:
+        type: json
+        data: |-
+          {
+              "success": true,
+              "status_code": 200,
+              "method": "POST",
+              "message": "Assigned Orders Founds",
+              "data": [
+                  {
+                      "id": 7,
+                      "awb_no": "CL_C2C_202509241",
+                      "order_ref_number": "12",
+                      "shipper_name": "Aline Carlson",
+                      "shipper_mobile_no": "Culpa ex doloremque",
+                      "shipper_email": "xusujivu@mailinator.com",
+                      "shipper_zone_no": "Et non tenetur et al",
+                      "shipper_street_no": "Velit velit consequ",
+                      "shipper_building_no": "Pariatur Aliquid ap",
+                      "shipper_address": "Adipisci minus ut to",
+                      "shipper_latitude": null,
+                      "shipper_longitude": null,
+                      "consignee_name": "Rigel Cortez",
+                      "consignee_mobile_no": "Culpa voluptatem nih",
+                      "consignee_email": "reton@mailinator.com",
+                      "consignee_zone_no": "Molestiae ipsum des",
+                      "consignee_street_no": "Nobis enim ducimus",
+                      "consignee_building_no": "Iusto reiciendis atq",
+                      "consignee_address": "Architecto Nam volup",
+                      "consignee_latitude": null,
+                      "consignee_longitude": null,
+                      "item_name": "Nicole Carpenter",
+                      "item_description": "Nulla amet cumque o",
+                      "quantity": 306,
+                      "weight": "91.00",
+                      "order_amount": "40.00",
+                      "payment_type": "prepaid",
+                      "fe_code": "CL_PAN",
+                      "status": "ASSIGNED",
+                      "picked_at": null,
+                      "delivered_at": null,
+                      "failed_at": null,
+                      "delivery_proof": null,
+                      "failed_delivery_proof": null,
+                      "signature": null,
+                      "collected_amount": null,
+                      "reconciled": 0,
+                      "reconciled_at": null,
+                      "cancel_reason": null,
+                      "remarks": "Eu sunt optio dolor",
+                      "created_at": "2025-09-24T11:44:40.000000Z",
+                      "updated_at": "2025-09-26T11:22:56.000000Z"
+                  },
+                  {
+                      "id": 8,
+                      "awb_no": "CL_C2C_202509242",
+                      "order_ref_number": "13",
+                      "shipper_name": "Alexander Munoz",
+                      "shipper_mobile_no": "Illum praesentium a",
+                      "shipper_email": "foheqaqy@mailinator.com",
+                      "shipper_zone_no": "Dolore harum minus N",
+                      "shipper_street_no": "Et explicabo Sed ne",
+                      "shipper_building_no": "Deserunt facilis cup",
+                      "shipper_address": "Corporis est culpa",
+                      "shipper_latitude": null,
+                      "shipper_longitude": null,
+                      "consignee_name": "Bianca Workman",
+                      "consignee_mobile_no": "Ducimus dolore aut",
+                      "consignee_email": "dalezavu@mailinator.com",
+                      "consignee_zone_no": "Itaque earum error e",
+                      "consignee_street_no": "Eligendi voluptatem",
+                      "consignee_building_no": "Culpa ea sint dolor",
+                      "consignee_address": "Obcaecati ut proiden",
+                      "consignee_latitude": null,
+                      "consignee_longitude": null,
+                      "item_name": "Gemma Boone",
+                      "item_description": "Dolor quam est ut e",
+                      "quantity": 601,
+                      "weight": "45.00",
+                      "order_amount": "67.00",
+                      "payment_type": "cod",
+                      "fe_code": "CL_PAN",
+                      "status": "ASSIGNED",
+                      "picked_at": null,
+                      "delivered_at": null,
+                      "failed_at": null,
+                      "delivery_proof": null,
+                      "failed_delivery_proof": null,
+                      "signature": null,
+                      "collected_amount": null,
+                      "reconciled": 0,
+                      "reconciled_at": null,
+                      "cancel_reason": null,
+                      "remarks": "Nostrum tempor porro",
+                      "created_at": "2025-09-24T11:47:50.000000Z",
+                      "updated_at": "2025-09-26T11:54:08.000000Z"
+                  }
+              ]
+          }

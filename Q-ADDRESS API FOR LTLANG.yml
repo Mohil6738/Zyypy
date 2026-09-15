@@ -1,0 +1,19 @@
+info:
+  name: Q-ADDRESS API FOR LTLANG
+  type: http
+  seq: 22
+
+http:
+  method: GET
+  url: https://qnas.qa/get_location/01/119/28
+  body:
+    type: json
+    data: get_location/{zone}/{street}/{building}
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

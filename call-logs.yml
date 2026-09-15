@@ -1,0 +1,24 @@
+info:
+  name: call-logs
+  type: http
+  seq: 26
+
+http:
+  method: POST
+  url: "{{base_url}}driver/call-log"
+  body:
+    type: json
+    data: |-
+      {
+          "fe_code":"CL_PAN",
+          "awb_no":"CL_2026040101",
+          "customer_phone":456789045678
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,24 @@
+info:
+  name: OpenStreet API
+  type: http
+  seq: 35
+
+http:
+  method: POST
+  url: "{{base_url}}driver/assign"
+  body:
+    type: json
+    data: |-
+      {
+          "driver_code":"CL_VK",
+          "awb_no":"ZPY-100001",
+          "warehouse_manager_code":"CL_PANKAJ"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
